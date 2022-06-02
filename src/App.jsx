@@ -8,7 +8,7 @@ import { withLoadedBooks } from './hocs/withLoadedBooks';
 
 const PageTechBooksWithLoadedBooks = withLoadedBooks(PageTechBooks, "The best web dev books of our time");
 const PageGeneralBooksWithLoadedBooks = withLoadedBooks(PageGeneralBooks, "Deep reading about society and culture");
-const PageAboutBooksWithLoadedBooks = withLoadedBooks(PageAbout);
+const PageAboutWithLoadedBooks = withLoadedBooks(PageAbout);
 
 function App() {
 	return (
@@ -26,8 +26,8 @@ function App() {
 					path="/tech-books"
 					element={<PageTechBooksWithLoadedBooks />}
 				/>
-				<Route path="/general-books" element={<PageGenericBooksWithLoadedBooks />} />
-				<Route path="/about" element={<PageAboutBooksWithLoadedBooks />} />
+				<Route path="/general-books" element={<PageGeneralBooksWithLoadedBooks />} />
+				<Route path="/about" element={<PageAboutWithLoadedBooks />} />
 				<Route path="/" element={<Navigate to="/welcome" replace />} />
 			</Routes>
 		</div>
