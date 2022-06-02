@@ -1,30 +1,31 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
- 
-const techBooksUrl = 'https://edwardtanguay.netlify.app/share/techBooks.json';
-const generalBooksUrl = 'https://edwardtanguay.netlify.app/share/books.json';
 
-return (props) => {
-    const [techBooks, setTechBooks] = useState([]);
-    const [generalBooks, setGeneralBooks] = useState([]);
+const techBookUrl = 'https://edwardtanguay.netlify.app/share/techBooks.json';
+const generalBookUrl = 'https://edwardtanguay.netlify.app/share/books.json';
 
-    useEffect(() => {
-        (async () => {
-            setTechBooks((await axios.get(techBooksUrl)).data);
-        })();
-    }, []);
+export const withLoadedBooks = (Component) => {
+	return (props) => {
+		const [techBooks, setTechBooks] = useState([]);
+		const [generalBooks, setGeneralBooks] = useState([]);
 
-    useEffect(() => {
-        (async () => {
-            setGeneralBooks((await axios.get(generalBooksUrl)).data);
-        })();
-    }, []);
+		useEffect(() => {
+			(async () => {
+				setTechBooks((await axios.get(techBookUrl)).data);
+			})();
+		}, []);
+		useEffect(() => {
+			(async () => {
+				setGeneralBooks((await axios.get(generalBookUrl)).data);
+			})();
+		}, []);
 
-const withLoadedBooks = () => {
-
-  return (
-    <div>withLoadedBooks</div>
-  )
-}
-
-export default withLoadedBooks
+		return (
+			<Component
+				{...props}
+				techBooks={techBooks}
+				generalBooks={generalBooks}
+			/>
+		)
+	};
+};
